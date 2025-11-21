@@ -1,0 +1,7 @@
+config_version=5
+
+[application]
+
+config/name="Advanced Usage"
+run/main_scene="res://GameManager.tscn"
+config/features=PackedStringArray("4.2")

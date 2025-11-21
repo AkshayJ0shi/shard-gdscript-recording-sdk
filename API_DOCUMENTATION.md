@@ -222,7 +222,7 @@ recording_sdk.max_reconnect_attempts = 5
 
 ---
 
-## Complete Examples
+## Complete Example
 
 ### Boss Fight Recording
 
@@ -243,80 +243,6 @@ func on_boss_spawn():
 func on_boss_defeated():
     # Stop recording 3 seconds after victory
     await recording_sdk.stop_recording(recording_id, 3.0)
-    recording_id = ""
-```
-
----
-
-### Speedrun Recording
-
-```gdscript
-extends Node
-
-var recording_sdk: RecordingSDK
-var recording_id: String = ""
-
-func _ready():
-    recording_sdk = RecordingSDK.new()
-    add_child(recording_sdk)
-    recording_sdk.connect_to_recorder()
-
-func on_level_start():
-    recording_id = await recording_sdk.start_recording("speedrun_level_1")
-
-func on_level_complete():
-    await recording_sdk.stop_recording(recording_id, 2.0)
-    recording_id = ""
-```
-
----
-
-### Achievement Unlock Recording
-
-```gdscript
-extends Node
-
-var recording_sdk: RecordingSDK
-var recording_id: String = ""
-
-func _ready():
-    recording_sdk = RecordingSDK.new()
-    add_child(recording_sdk)
-    recording_sdk.connect_to_recorder()
-
-func on_achievement_progress(progress: float):
-    # Start recording when close to unlocking (90% progress)
-    if progress >= 0.9 and recording_id.is_empty():
-        recording_id = await recording_sdk.start_recording("achievement_first_blood")
-
-func on_achievement_unlocked():
-    if recording_id.is_empty():
-        return
-    
-    await recording_sdk.stop_recording(recording_id, 2.0)
-    recording_id = ""
-```
-
----
-
-### PvP Match Recording
-
-```gdscript
-extends Node
-
-var recording_sdk: RecordingSDK
-var recording_id: String = ""
-
-func _ready():
-    recording_sdk = RecordingSDK.new()
-    add_child(recording_sdk)
-    recording_sdk.connect_to_recorder()
-
-func on_match_start():
-    recording_id = await recording_sdk.start_recording("pvp_deathmatch")
-
-func on_match_end():
-    await recording_sdk.stop_recording(recording_id, 5.0)
     recording_id = ""
 ```
 
@@ -391,14 +317,6 @@ recording_id = await recording_sdk.start_recording(metadata)
 # Use it to stop
 await recording_sdk.stop_recording(recording_id)
 ```
-
----
-
-## Support
-
-- **GitHub:** [github.com/yourusername/godot-recording-sdk](https://github.com)
-- **Issues:** Report bugs on GitHub Issues
-- **Discussions:** Ask questions on GitHub Discussions
 
 ---
 
