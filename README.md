@@ -282,25 +282,43 @@ func _on_recording_stopped(recording_id: String, file_path: String):
     print("✓ Saved: ", file_path)
 ```
 
-## Metadata Best Practices
+## Event ID Setup
 
-### Event Identifier
-Always include an `event_id` to identify the clip:
+### Using Shard CLI (Recommended)
 
-```gdscript
-# Recommended
-await recording_sdk.start_recording("boss_fight_dragon")
+Generate event IDs locally using the Shard CLI:
+
+```bash
+# Initialize recording config
+npx @shard/cli recording init
+
+# Add events
+npx @shard/cli recording add
+# ? Event name: Boss Defeated
+# ✓ Added: myGame_e5f6g7h8 → "Boss Defeated"
+
+# Export for distribution
+npx @shard/cli recording export
 ```
 
-### Recommended IDs
-- `boss_fight_dragon`
-- `speedrun_level_1`
-- `achievement_first_blood`
-- `pvp_deathmatch`
+### Event ID Format
+
+Event IDs follow the format: `{camelCaseGameName}_{8charHex}`
+
+Examples:
+- `everplast_a1b2c3d4`
+- `darkSouls3_e5f6g7h8`
+
+### Using Event IDs in Code
+
+```gdscript
+# Use the event ID from shard.recording.json
+await recording_sdk.start_recording("everplast_e5f6g7h8")
+```
 
 ### Size Limits
 - Keep event IDs under 255 characters
-- Use filesystem-safe characters (alphanumeric, underscores, hyphens)
+- Use filesystem-safe characters (alphanumeric, underscores)
 
 ## Troubleshooting
 
